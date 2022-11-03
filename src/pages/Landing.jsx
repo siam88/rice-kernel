@@ -215,7 +215,7 @@ function Landing(props) {
           <Row>
             <Col md={6} className="flex_center flex-column">
               <div className="px-md-5">
-                <h2 className="l_title">Instant Invoice OCR</h2>
+                <h2 className="l_title">Instant Rice Details</h2>
                 <p className="sub_title">100% Automatically</p>
               </div>
               <div className="img_section">
