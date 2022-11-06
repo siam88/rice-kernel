@@ -128,7 +128,7 @@ function Landing(props) {
 
   const onCameraSubmit = (img) => {
     var formData = new FormData();
-    formData.append("file", dataURLtoFile(img));
+    formData.append("image", dataURLtoFile(img));
     submitImage(
       formData,
       (result) => {
