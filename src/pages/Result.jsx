@@ -101,14 +101,14 @@ const Result = ({ result, setResults }) => {
         >
           <div className="d-none d-sm-block">
             <div className="flex_center flex-column">
-              <Button
+              {Tab !== "result" && <Button
                 className="btn btn_sm mb-2"
                 onClick={() => {
                   downloadImage(downloadableImageSrc);
                 }}
               >
                 Download
-              </Button>
+              </Button>}
               {/* <DropdownButton
                 as={ButtonGroup}
                 title="Export"
@@ -138,7 +138,7 @@ const Result = ({ result, setResults }) => {
           </div>
           {/* ================= */}
           <div className="d-flex flex_center d-sm-none">
-            <div className="">
+            {Tab !== "result" &&  <div className="">
               <Button
                 className="btn btn_sm"
                 onClick={() => {
@@ -152,9 +152,9 @@ const Result = ({ result, setResults }) => {
                 Preview Image <br /> 600 x 400 &nbsp;
                 <AiOutlineInfoCircle />
               </p>
-            </div>
+            </div>}
           </div>
-          <div className="emoji_section mt-2 mt-sm-5 flex_center">
+          {/* <div className="emoji_section mt-2 mt-sm-5 flex_center">
             <p>
               Rate this result:{" "}
               <span className="emoji_icon emoji_icon_click">
@@ -174,7 +174,7 @@ const Result = ({ result, setResults }) => {
                 />
               </span>
             </p>
-          </div>
+          </div> */}
         </Col>
       </Col>
     </Row>
