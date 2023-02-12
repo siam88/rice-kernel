@@ -49,7 +49,7 @@ const Result = ({ result, setResults }) => {
   }
   }
   return (
-    <Row className="my-sm-5 mx-2 d-flex align-items-center justify-content-center">
+    <Row className="my-sm-5 mx-2 d-flex align-items-center justify-content-center result_parent">
       <Col lg={12} className="upload_list_items p-3 d-sm-flex">
         <button
           className="btn_close"
