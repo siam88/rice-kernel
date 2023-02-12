@@ -31,7 +31,7 @@ export function CameraModal({
       { value: "user", name: "Front" },
       { value: "environment", name: "Back" },
     ],
-    current: "user",
+    current: "environment",
   });
   return (
     <div className="camera_modal">
