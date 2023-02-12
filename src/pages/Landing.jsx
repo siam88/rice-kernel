@@ -77,8 +77,11 @@ function Landing(props) {
             formData,
             (result) => {
               setResults((prev) => {
-                return [...prev, { input: binaryStr, out: result }];
+                return [ { input: binaryStr, out: result }];
               });
+              // setResults((prev) => {
+              //   return [...prev, { input: binaryStr, out: result }];
+              // });
               setLoading(false);
             },
             () => { }
@@ -133,8 +136,11 @@ function Landing(props) {
       formData,
       (result) => {
         setResults((prev) => {
-          return [...prev, { input: img, out: result }];
+          return [{ input: img, out: result }];
         });
+        // setResults((prev) => {
+        //   return [...prev, { input: img, out: result }];
+        // });
       },
       () => { }
     );
@@ -223,7 +229,12 @@ function Landing(props) {
               </div>
             </Col>
             <Col md={6} className="upload_section flex_center mt-0 px-0">
-              <div className="flex-column flex_center upload_section_inner">
+              {Loading ? (<>
+              
+                
+                <p style={{ color: "gray" }} className="ml-4">   <Spinner animation="border" variant="dark" className="loader" /> &nbsp; image is Processing...</p>
+              </>
+              ) : <div className="flex-column flex_center upload_section_inner">
                 {deviceStatus.hasWebcam && CAMERA == "ON" && (
                   <Button
                     className="btn_webcam mb-3 btn-secondary"
@@ -243,7 +254,8 @@ function Landing(props) {
                   Upload
                 </Button>
                 <p>or drop an image...</p>
-              </div>
+              </div>}
+              
             </Col>
           </Row>
         </Container>

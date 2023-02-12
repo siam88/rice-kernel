@@ -17,7 +17,7 @@ import { FiMenu } from "react-icons/fi";
 import { downloadImage } from "../utils/funcs";
 import ResultGrid from "../components/ResultGrid";
 import { downloadObjectAsJson } from "./../utils/funcs";
-const { REACT_APP_SERVER_ROOT: SERVER_ROOT } = process.env;
+import ImageShowing from './../components/ImageShowing';
 
 const Result = ({ result, setResults }) => {
   const { input, out } = result;
@@ -32,21 +32,24 @@ const Result = ({ result, setResults }) => {
     }, 200);
   }, [result]);
 
+
+
   const onExportCSV = () => {
     gridRef.current?.api.exportDataAsCsv();
   };
-  const checkTab=()=>{
-    console.log("out",out)
-    if(Tab == "original"){
-            return   <img className="img_fit" src={input} alt="" />
+  const checkTab = () => {
 
-  }else if(Tab=="resultImg"){
-            return   <img className="img_fit" src={`https://rice-kernel-app-6n5m5gz56q-el.a.run.app/${out.path.preview}`} alt="" />
+    if (Tab === "original") {
+      return <img className="img_fit" src={input} alt="" />
 
-  }else{
-           return   <ResultGrid output={out} type="single" gridRef={gridRef} />
+    } else if (Tab === "resultImg") {
+      return <ImageShowing img={out.path.preview} />
 
-  }
+    } else {
+
+      return <ResultGrid output={out} type="single" gridRef={gridRef} />
+
+    }
   }
   return (
     <Row className="my-sm-5 mx-2 d-flex align-items-center justify-content-center result_parent">
@@ -73,22 +76,22 @@ const Result = ({ result, setResults }) => {
               Input
             </span>
             <span
-            
+
               className={Tab == "resultImg" ? "active" : ""}
               onClick={() => setTab("resultImg")}
             >
-               Image Detection &nbsp;
+              Output   &nbsp;
             </span>
             <span
               className={Tab == "result" ? "active" : ""}
               onClick={() => setTab("result")}
             >
-              Output
+              Result
             </span>
           </div>
           <div>
             {checkTab()}
-           
+
           </div>
         </Col>
         <Col
@@ -105,13 +108,12 @@ const Result = ({ result, setResults }) => {
               >
                 Download
               </Button> */}
-              <DropdownButton
+              {/* <DropdownButton
                 as={ButtonGroup}
                 title="Export"
                 id="bg-nested-dropdown"
-                className={`btn btn_sm mb-2 ${
-                  Tab == "original" ? "disabled" : ""
-                }`}
+                className={`btn btn_sm mb-2 ${Tab == "original" ? "disabled" : ""
+                  }`}
               >
                 <Dropdown.Item eventKey="1" onClick={() => onExportCSV()}>
                   Download CSV
@@ -122,7 +124,7 @@ const Result = ({ result, setResults }) => {
                 >
                   Download JSON
                 </Dropdown.Item>
-              </DropdownButton>
+              </DropdownButton> */}
               {/* <p className="d-none d-md-block">
                 Preview Image 600 x 400 &nbsp;
                 <AiOutlineInfoCircle />
@@ -164,7 +166,6 @@ const Result = ({ result, setResults }) => {
               </span>
               <span className="emoji_icon emoji_icon_click">
                 <BsEmojiFrown
-                  fill="red"
                   fill={reaction == "disliked" ? "red" : "black"}
                   onClick={() => {
                     setReaction("disliked");

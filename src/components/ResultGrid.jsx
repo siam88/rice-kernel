@@ -32,26 +32,28 @@ export const ResultGrid = (props) => {
     } else if (type == "collection") {
       setoutArray(output);
     }
-    return () => {};
+    return () => { };
   }, [output]);
 
   useEffect(() => {
     if (outArray.length > 0) {
-      console.log({ outArray });
       const colDef = [
-        ...Object.keys(outArray[0]).map((key) => {
+        ...Object.keys(outArray[0]).filter((item) => item !== "path").map((key) => {
+
           return {
             headerName: key,
             field: key,
             // cellRendererFramework: (params) => <span>{params.data[key]}</span>,
           };
+
+
         }),
       ];
 
       setcolumnDefs(colDef || []);
     }
 
-    return () => {};
+    return () => { };
   }, [outArray]);
 
   useEffect(() => {
@@ -59,7 +61,7 @@ export const ResultGrid = (props) => {
     if (gridApi) {
       outArray.length > 0 && gridApi.setRowData(outArray);
     }
-    return () => {};
+    return () => { };
   }, [gridApi, outArray, colApi]);
 
   const onGridReady = (params) => {
@@ -84,9 +86,9 @@ export const ResultGrid = (props) => {
         pagination={type == "collection" ? true : false}
         paginationPageSize={20}
         onCellValueChanged={onCellValueChanged}
-        // paginationNumberFormatter={function (params) {
-        //   return '[' + params.value.toLocaleString() + ']';
-        // }}
+      // paginationNumberFormatter={function (params) {
+      //   return '[' + params.value.toLocaleString() + ']';
+      // }}
       ></AgGridReact>
     </div>
   );
