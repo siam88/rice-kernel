@@ -22,6 +22,7 @@ import ImageShowing from './../components/ImageShowing';
 const Result = ({ result, setResults }) => {
   const { input, out } = result;
   const [Tab, setTab] = useState("result");
+  const [downloadableImageSrc, setDownloadableImageSrc] = useState();
   const [reaction, setReaction] = useState("neutral");
   const gridRef = useRef();
   useEffect(() => {
@@ -71,14 +72,14 @@ const Result = ({ result, setResults }) => {
           <div className="py-3 tab_section">
             <span
               className={Tab == "original" ? "active" : ""}
-              onClick={() => setTab("original")}
+              onClick={() => { setTab("original"); setDownloadableImageSrc(input) }}
             >
               Input
             </span>
             <span
 
               className={Tab == "resultImg" ? "active" : ""}
-              onClick={() => setTab("resultImg")}
+              onClick={() => { setTab("resultImg"); setDownloadableImageSrc(`https://rice-kernel-app-6n5m5gz56q-el.a.run.app/${out.path.preview}`) }}
             >
               Output   &nbsp;
             </span>
@@ -100,14 +101,14 @@ const Result = ({ result, setResults }) => {
         >
           <div className="d-none d-sm-block">
             <div className="flex_center flex-column">
-              {/* <Button
+              <Button
                 className="btn btn_sm mb-2"
                 onClick={() => {
-                  downloadImage(out);
+                  downloadImage(downloadableImageSrc);
                 }}
               >
                 Download
-              </Button> */}
+              </Button>
               {/* <DropdownButton
                 as={ButtonGroup}
                 title="Export"
@@ -141,7 +142,7 @@ const Result = ({ result, setResults }) => {
               <Button
                 className="btn btn_sm"
                 onClick={() => {
-                  downloadImage(out);
+                  downloadImage(downloadableImageSrc);
                 }}
               >
                 Download

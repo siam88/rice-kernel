@@ -56,7 +56,6 @@ function Landing(props) {
   const [AllResultmodalShow, setAllResultModalShow] = useState(false);
 
   useEffect(() => {
-    console.log({ CAMERA });
     return () => { };
   }, [deviceStatus]);
 

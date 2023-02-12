@@ -19,10 +19,17 @@ export async function downloadImage(imageSrc) {
   const image = await fetch(imageSrc);
   const imageBlog = await image.blob();
   const imageURL = URL.createObjectURL(imageBlog);
+  console.log("imageSrc", imageSrc);
+  // const link = document.createElement("a");
+  // link.href = imageURL;
+  // link.download = `output-${new Date().getMilliseconds()}`;
+  // document.body.appendChild(link);
+  // link.click();
+  // document.body.removeChild(link);
 
-  const link = document.createElement("a");
+  var link = document.createElement("a");
   link.href = imageURL;
-  link.download = `output-${new Date().getMilliseconds()}`;
+  link.download = "rice.jpg";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

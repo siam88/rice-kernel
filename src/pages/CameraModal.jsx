@@ -96,7 +96,6 @@ export function CameraModal({
               }}
               onUserMediaError={(error) => {
                 setcameraError(error.message);
-                console.log(error.message);
               }}
             />
           ) : (
