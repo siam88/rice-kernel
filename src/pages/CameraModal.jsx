@@ -86,7 +86,7 @@ export function CameraModal({
                 window.screen.width < 769
                   ? {
                       ...videoConstraints,
-                      facingMode: cameraMode.current,
+                      facingMode: false,
                     }
                   : videoConstraints
               }

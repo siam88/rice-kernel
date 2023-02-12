@@ -17,6 +17,7 @@ import { FiMenu } from "react-icons/fi";
 import { downloadImage } from "../utils/funcs";
 import ResultGrid from "../components/ResultGrid";
 import { downloadObjectAsJson } from "./../utils/funcs";
+const { REACT_APP_SERVER_ROOT: SERVER_ROOT } = process.env;
 
 const Result = ({ result, setResults }) => {
   const { input, out } = result;
@@ -34,6 +35,19 @@ const Result = ({ result, setResults }) => {
   const onExportCSV = () => {
     gridRef.current?.api.exportDataAsCsv();
   };
+  const checkTab=()=>{
+    console.log("out",out)
+    if(Tab == "original"){
+            return   <img className="img_fit" src={input} alt="" />
+
+  }else if(Tab=="resultImg"){
+            return   <img className="img_fit" src={`https://rice-kernel-app-6n5m5gz56q-el.a.run.app/${out.path.preview}`} alt="" />
+
+  }else{
+           return   <ResultGrid output={out} type="single" gridRef={gridRef} />
+
+  }
+  }
   return (
     <Row className="my-sm-5 mx-2 d-flex align-items-center justify-content-center">
       <Col lg={12} className="upload_list_items p-3 d-sm-flex">
@@ -59,6 +73,13 @@ const Result = ({ result, setResults }) => {
               Input
             </span>
             <span
+            
+              className={Tab == "resultImg" ? "active" : ""}
+              onClick={() => setTab("resultImg")}
+            >
+               Image Detection &nbsp;
+            </span>
+            <span
               className={Tab == "result" ? "active" : ""}
               onClick={() => setTab("result")}
             >
@@ -66,11 +87,8 @@ const Result = ({ result, setResults }) => {
             </span>
           </div>
           <div>
-            {Tab == "original" ? (
-              <img className="img_fit" src={input} alt="" />
-            ) : (
-              <ResultGrid output={out} type="single" gridRef={gridRef} />
-            )}
+            {checkTab()}
+           
           </div>
         </Col>
         <Col
