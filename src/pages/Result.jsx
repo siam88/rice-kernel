@@ -18,6 +18,7 @@ import { downloadImage } from "../utils/funcs";
 import ResultGrid from "../components/ResultGrid";
 import { downloadObjectAsJson } from "./../utils/funcs";
 import ImageShowing from "./../components/ImageShowing";
+import List from "../components/List";
 
 const Result = ({ result, setResults, imageUpdated }) => {
   const { input, out } = result;
@@ -50,7 +51,8 @@ const Result = ({ result, setResults, imageUpdated }) => {
         />
       );
     } else {
-      return <ResultGrid output={out} type="single" gridRef={gridRef} />;
+      return <List output={out}/>;
+      // return <ResultGrid output={out} type="single" gridRef={gridRef} />;
     }
   };
   return (
