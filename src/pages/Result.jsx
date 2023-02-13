@@ -42,7 +42,7 @@ const Result = ({ result, setResults, imageUpdated }) => {
     console.log("imageUpdated", imageUpdated);
     if (Tab === "original") {
       return <img className="img_fit" src={input} alt="" />;
-    } else if (Tab === "resultImg" ) {
+    } else if (Tab === "resultImg") {
       return (
         <ImageShowing
           img={out.path.preview}
@@ -51,7 +51,7 @@ const Result = ({ result, setResults, imageUpdated }) => {
         />
       );
     } else {
-      return <List output={out}/>;
+      return <List output={out} />;
       // return <ResultGrid output={out} type="single" gridRef={gridRef} />;
     }
   };
@@ -100,38 +100,55 @@ const Result = ({ result, setResults, imageUpdated }) => {
               Result
             </span>
           </div>
+          <div className="d-flex flex-row   d-sm-none  ">
+            <div className="flex_center  flex-row">
+              {(Tab == "resultImg" || Tab == "result") && (
+                <div className="emoji_section mt-2 mt-sm-5 flex_center">
+                  <span style={{ marginRight: "10px" }}>
+                    <div style={{ height: "20px", background: "#ff3838" }} />
+                    <p>Rice</p>
+                  </span>
+                  <span style={{ marginRight: "10px" }}>
+                    <div style={{ height: "20px", background: "#ff9d97" }} />
+                    <p>Kernel </p>
+                  </span>
+                  <span className=" ml-2">
+                    <div style={{ height: "20px", background: "#ff701f" }} />
+                    <p>Broken Rice </p>
+                  </span>
+                </div>
+              )}
+             
+            </div>
+        
+          </div>
+
           <div>{checkTab()}</div>
         </Col>
         <Col
           md={4}
           className="right_section pt-2 d-flex align-items-sm-center justify-content-center flex-column"
         >
+          {" "}
+          <div className="flex_center flex-column"></div>
           <div className="d-none d-sm-block">
             <div className="flex_center flex-column">
-              {(Tab == "resultImg" || Tab =="result") && <div className="emoji_section mt-2 mt-sm-5 flex_center">
-                <span
-                  className="emoji_icon emoji_icon_click ml-2"
-                  
-                >
-                  <div style={{ height: "20px", background: "#ff3838" }}/>
-                  <p>Rice</p>
-                </span>
-                <span
-                  className="emoji_icon emoji_icon_click ml-2"
-                  
-                >
-                  <div style={{ height: "20px", background: "#ff9d97" }}/>
-                  <p>kernel </p>
-                </span>
-                <span
-                  className="emoji_icon emoji_icon_click ml-2"
-                  
-                >
-                  <div style={{ height: "20px", background: "#ff701f" }}/>
-                  <p>Broken Rice </p>
-                </span>
-                
-              </div>}
+              {(Tab == "resultImg" || Tab == "result") && (
+                <div className="emoji_section mt-2 mt-sm-5 flex_center">
+                  <span className="emoji_icon emoji_icon_click ml-2">
+                    <div style={{ height: "20px", background: "#ff3838" }} />
+                    <p>Rice</p>
+                  </span>
+                  <span className="emoji_icon emoji_icon_click ml-2">
+                    <div style={{ height: "20px", background: "#ff9d97" }} />
+                    <p>Kernel </p>
+                  </span>
+                  <span className="emoji_icon emoji_icon_click ml-2">
+                    <div style={{ height: "20px", background: "#ff701f" }} />
+                    <p>Broken Rice </p>
+                  </span>
+                </div>
+              )}
               {Tab !== "result" && (
                 <Button
                   className="btn btn_sm mb-2"

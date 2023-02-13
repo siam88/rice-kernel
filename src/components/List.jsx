@@ -13,7 +13,7 @@ const List = ({output}) => {
       </ListGroup.Item>}
      {output?.Kernel && <ListGroup.Item className="d-flex justify-content-between align-items-start">
         <div className="ms-2 me-auto">
-          <div className="fw-bold p-4">2. kernel</div>
+          <div className="fw-bold p-4">2. Kernel</div>
         </div>
         <span className="p-4 fw-bold">{output.Kernel}</span>
       </ListGroup.Item>}
