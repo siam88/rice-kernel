@@ -17,9 +17,9 @@ import { FiMenu } from "react-icons/fi";
 import { downloadImage } from "../utils/funcs";
 import ResultGrid from "../components/ResultGrid";
 import { downloadObjectAsJson } from "./../utils/funcs";
-import ImageShowing from './../components/ImageShowing';
+import ImageShowing from "./../components/ImageShowing";
 
-const Result = ({ result, setResults }) => {
+const Result = ({ result, setResults, imageUpdated }) => {
   const { input, out } = result;
   const [Tab, setTab] = useState("result");
   const [downloadableImageSrc, setDownloadableImageSrc] = useState();
@@ -27,31 +27,32 @@ const Result = ({ result, setResults }) => {
   const gridRef = useRef();
   useEffect(() => {
     setTimeout(() => {
+      setTab("result");
       document
         .querySelector(".result_parent")
         ?.scrollIntoView({ behavior: "smooth" });
     }, 200);
-  }, [result]);
-
-
+  }, [result, imageUpdated]);
 
   const onExportCSV = () => {
     gridRef.current?.api.exportDataAsCsv();
   };
   const checkTab = () => {
-
+    console.log("imageUpdated", imageUpdated);
     if (Tab === "original") {
-      return <img className="img_fit" src={input} alt="" />
-
+      return <img className="img_fit" src={input} alt="" />;
     } else if (Tab === "resultImg") {
-      return <ImageShowing img={out.path.preview} />
-
+      return (
+        <ImageShowing
+          img={out.path.preview}
+          input={input}
+          imageUpdated={imageUpdated}
+        />
+      );
     } else {
-
-      return <ResultGrid output={out} type="single" gridRef={gridRef} />
-
+      return <ResultGrid output={out} type="single" gridRef={gridRef} />;
     }
-  }
+  };
   return (
     <Row className="my-sm-5 mx-2 d-flex align-items-center justify-content-center result_parent">
       <Col lg={12} className="upload_list_items p-3 d-sm-flex">
@@ -72,16 +73,23 @@ const Result = ({ result, setResults }) => {
           <div className="py-3 tab_section">
             <span
               className={Tab == "original" ? "active" : ""}
-              onClick={() => { setTab("original"); setDownloadableImageSrc(input) }}
+              onClick={() => {
+                setTab("original");
+                setDownloadableImageSrc(input);
+              }}
             >
               Input
             </span>
             <span
-
               className={Tab == "resultImg" ? "active" : ""}
-              onClick={() => { setTab("resultImg"); setDownloadableImageSrc(`https://rice-kernel-app-6n5m5gz56q-el.a.run.app/${out.path.preview}`) }}
+              onClick={() => {
+                setTab("resultImg");
+                setDownloadableImageSrc(
+                  `https://rice-kernel-app-6n5m5gz56q-el.a.run.app/${out.path.preview}`
+                );
+              }}
             >
-              Output   &nbsp;
+              Output &nbsp;
             </span>
             <span
               className={Tab == "result" ? "active" : ""}
@@ -90,10 +98,7 @@ const Result = ({ result, setResults }) => {
               Result
             </span>
           </div>
-          <div>
-            {checkTab()}
-
-          </div>
+          <div>{checkTab()}</div>
         </Col>
         <Col
           md={4}
@@ -101,14 +106,40 @@ const Result = ({ result, setResults }) => {
         >
           <div className="d-none d-sm-block">
             <div className="flex_center flex-column">
-              {Tab !== "result" && <Button
-                className="btn btn_sm mb-2"
-                onClick={() => {
-                  downloadImage(downloadableImageSrc);
-                }}
-              >
-                Download
-              </Button>}
+              {Tab == "resultImg" && <div className="emoji_section mt-2 mt-sm-5 flex_center">
+                <span
+                  className="emoji_icon emoji_icon_click ml-2"
+                  
+                >
+                  <div style={{ height: "20px", background: "#ff3838" }}/>
+                  <p>Rice</p>
+                </span>
+                <span
+                  className="emoji_icon emoji_icon_click ml-2"
+                  
+                >
+                  <div style={{ height: "20px", background: "#ff9d97" }}/>
+                  <p>kernel </p>
+                </span>
+                <span
+                  className="emoji_icon emoji_icon_click ml-2"
+                  
+                >
+                  <div style={{ height: "20px", background: "#ff701f" }}/>
+                  <p>Broken Rice </p>
+                </span>
+                
+              </div>}
+              {Tab !== "result" && (
+                <Button
+                  className="btn btn_sm mb-2"
+                  onClick={() => {
+                    downloadImage(downloadableImageSrc);
+                  }}
+                >
+                  Download
+                </Button>
+              )}
               {/* <DropdownButton
                 as={ButtonGroup}
                 title="Export"
@@ -138,21 +169,23 @@ const Result = ({ result, setResults }) => {
           </div>
           {/* ================= */}
           <div className="d-flex flex_center d-sm-none">
-            {Tab !== "result" &&  <div className="">
-              <Button
-                className="btn btn_sm"
-                onClick={() => {
-                  downloadImage(downloadableImageSrc);
-                }}
-              >
-                Download
-              </Button>
+            {Tab !== "result" && (
+              <div className="">
+                <Button
+                  className="btn btn_sm"
+                  onClick={() => {
+                    downloadImage(downloadableImageSrc);
+                  }}
+                >
+                  Download
+                </Button>
 
-              <p className="text-center d-md-none">
-                Preview Image <br /> 600 x 400 &nbsp;
-                <AiOutlineInfoCircle />
-              </p>
-            </div>}
+                <p className="text-center d-md-none">
+                  Preview Image <br /> 600 x 400 &nbsp;
+                  <AiOutlineInfoCircle />
+                </p>
+              </div>
+            )}
           </div>
           {/* <div className="emoji_section mt-2 mt-sm-5 flex_center">
             <p>

@@ -41,6 +41,7 @@ function Landing(props) {
   const [capturedImage, setCapturedImage] = useState("");
   const [results, setResults] = useState([]);
   const [Loading, setLoading] = useState(false);
+  const [imageUpdated, setImageUpdated] = useState(false);
   const [Mode, setMode] = useState("Camera");
   const handleClose = () => {
     setShow(false);
@@ -56,11 +57,12 @@ function Landing(props) {
   const [AllResultmodalShow, setAllResultModalShow] = useState(false);
 
   useEffect(() => {
-    return () => { };
+    return () => {};
   }, [deviceStatus]);
 
   const onDrop = useCallback((acceptedFiles) => {
     let errors = 0;
+    setImageUpdated(false);
     acceptedFiles.forEach((file) => {
       if (file.type.includes("image")) {
         const reader = new FileReader();
@@ -71,19 +73,21 @@ function Landing(props) {
           const binaryStr = reader.result;
           var formData = new FormData();
           formData.append("image", dataURLtoFile(binaryStr));
-
+          setResults([]);
           submitImage(
             formData,
             (result) => {
               setResults((prev) => {
-                return [ { input: binaryStr, out: result }];
+                setImageUpdated(true);
+
+                return [{ input: binaryStr, out: result }];
               });
               // setResults((prev) => {
               //   return [...prev, { input: binaryStr, out: result }];
               // });
               setLoading(false);
             },
-            () => { }
+            () => {}
           );
         };
         reader.readAsDataURL(file);
@@ -92,6 +96,8 @@ function Landing(props) {
       }
     });
     if (errors) {
+      setImageUpdated(false);
+
       toast.error("Can not process non-image files.");
     }
   }, []);
@@ -106,6 +112,7 @@ function Landing(props) {
   function submitImage(formData, cbOk, cbErr) {
     setMode("Camera");
     setLoading(true);
+    setResults([]);
     fetch(SERVER_ROOT, {
       method: "POST",
       headers: {
@@ -141,7 +148,7 @@ function Landing(props) {
         //   return [...prev, { input: img, out: result }];
         // });
       },
-      () => { }
+      () => {}
     );
     handleClose();
   };
@@ -178,7 +185,7 @@ function Landing(props) {
         {...getRootProps({
           role: "unset",
         })}
-        onClick={(e) => { }}
+        onClick={(e) => {}}
       >
         <div>
           <input {...getInputProps()} ref={inputRef} />
@@ -228,38 +235,46 @@ function Landing(props) {
               </div>
             </Col>
             <Col md={6} className="upload_section flex_center mt-0 px-0">
-              {Loading ? (<>
-              
-                
-                <p style={{ color: "gray" }} className="ml-4">   <Spinner animation="border" variant="dark" className="loader" /> &nbsp; image is Processing...</p>
-              </>
-              ) : <div className="flex-column flex_center upload_section_inner">
-                {deviceStatus.hasWebcam && CAMERA == "ON" && (
-                  <Button
-                    className="btn_webcam mb-3 btn-secondary"
-                    onClick={handleShow}
-                  >
-                    Use Webcam
-                  </Button>
-                )}
+              {Loading ? (
+                <>
+                  <p style={{ color: "gray" }} className="ml-4">
+                    {" "}
+                    <Spinner
+                      animation="border"
+                      variant="dark"
+                      className="loader"
+                    />{" "}
+                    &nbsp; image is Processing...
+                  </p>
+                </>
+              ) : (
+                <div className="flex-column flex_center upload_section_inner">
+                  {deviceStatus.hasWebcam && CAMERA == "ON" && (
+                    <Button
+                      className="btn_webcam mb-3 btn-secondary"
+                      onClick={handleShow}
+                    >
+                      Use Webcam
+                    </Button>
+                  )}
 
-                <Button
-                  className="btn btn_upload mb-2"
-                  onClick={() => {
-                    inputRef.current?.click();
-                  }}
-                >
-                  <AiOutlineCloudUpload className="upload_icon" />
-                  Upload
-                </Button>
-                <p>or drop an image...</p>
-              </div>}
-              
+                  <Button
+                    className="btn btn_upload mb-2"
+                    onClick={() => {
+                      inputRef.current?.click();
+                    }}
+                  >
+                    <AiOutlineCloudUpload className="upload_icon" />
+                    Upload
+                  </Button>
+                  <p>or drop an image...</p>
+                </div>
+              )}
             </Col>
           </Row>
         </Container>
 
-        <ResultList results={results} setResults={setResults} />
+        <ResultList results={results} setResults={setResults} imageUpdated={imageUpdated} />
       </Container>
     </Fragment>
   );

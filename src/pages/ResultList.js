@@ -8,7 +8,7 @@ import { BsEmojiSmile, BsEmojiFrown } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
 import Result from "./Result";
 
-function ResultList({ results, setResults }) {
+function ResultList({ results, setResults,imageUpdated }) {
   return (
     <Fragment>
       <Container
@@ -16,7 +16,7 @@ function ResultList({ results, setResults }) {
         className="upload_list_section py-sm-5 py-3 result_parent"
       >
         {[...results].reverse().map((result) => {
-          return <Result result={result} setResults={setResults} />;
+          return <Result result={result} setResults={setResults} imageUpdated={imageUpdated}/>;
         })}
       </Container>
     </Fragment>
