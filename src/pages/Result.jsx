@@ -42,7 +42,7 @@ const Result = ({ result, setResults, imageUpdated }) => {
     console.log("imageUpdated", imageUpdated);
     if (Tab === "original") {
       return <img className="img_fit" src={input} alt="" />;
-    } else if (Tab === "resultImg") {
+    } else if (Tab === "resultImg" ) {
       return (
         <ImageShowing
           img={out.path.preview}
@@ -108,7 +108,7 @@ const Result = ({ result, setResults, imageUpdated }) => {
         >
           <div className="d-none d-sm-block">
             <div className="flex_center flex-column">
-              {Tab == "resultImg" && <div className="emoji_section mt-2 mt-sm-5 flex_center">
+              {(Tab == "resultImg" || Tab =="result") && <div className="emoji_section mt-2 mt-sm-5 flex_center">
                 <span
                   className="emoji_icon emoji_icon_click ml-2"
                   
