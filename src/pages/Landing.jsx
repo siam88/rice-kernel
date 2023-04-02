@@ -274,7 +274,11 @@ function Landing(props) {
           </Row>
         </Container>
 
-        <ResultList results={results} setResults={setResults} imageUpdated={imageUpdated} />
+        <ResultList
+          results={results}
+          setResults={setResults}
+          imageUpdated={imageUpdated}
+        />
       </Container>
     </Fragment>
   );
