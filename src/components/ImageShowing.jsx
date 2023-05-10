@@ -5,7 +5,7 @@ const ImageShowing = ({img,imageUpdated}) => {
   const [image, setImage] = useState();
 
   useEffect(() => {
-    imageUpdated && setImage(`https://rice-kernel-app-6n5m5gz56q-el.a.run.app/${img}`);
+    imageUpdated && setImage(`https://riceapi.appswind.com/${img}`);
   }, [imageUpdated]);
 
   return (

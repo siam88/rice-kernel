@@ -87,7 +87,7 @@ const Result = ({ result, setResults, imageUpdated }) => {
               onClick={() => {
                 setTab("resultImg");
                 setDownloadableImageSrc(
-                  `https://rice-kernel-app-6n5m5gz56q-el.a.run.app/${out.path.preview}`
+                  `https://riceapi.appswind.com/${out.path.preview}`
                 );
               }}
             >
